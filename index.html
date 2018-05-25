@@ -1,0 +1,1321 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge，chrome=1">
+	<title> 你好 世界!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="description" content="由mz工作室支持的全球旅游咨询服务有限公司。" />
+	<meta name="keywords" content="旅游，自由，爱情，计划，顾问，出行，散心" />
+	<meta name="author" content="mz工作室" />
+
+   <!--SEO优化关键词-->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Simple Line Icons -->
+	<link rel="stylesheet" href="css/simple-line-icons.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<!--paly_back-->
+	<link rel="stylesheet" href="css/play_back.css">
+	<link rel="stylesheet" href="css/style.css">
+		<!--推荐路线-->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/demo-rec.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<!-- jQuery -->
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	</head>
+<body>
+	<!--引导页-->
+	<div id="canvasbox">
+		<canvas id="canvas" style="background:#111"></canvas>
+		<script type="text/javascript">
+            window.onload = function(){
+                //获取画布对象
+                var canvas = document.getElementById("canvas");
+                //获取画布的上下文
+                var context =canvas.getContext("2d");
+                //获取浏览器屏幕的宽度和高度
+                var W = window.innerWidth;
+                var H = window.innerHeight;
+                //设置canvas的宽度和高度
+                canvas.width = W;
+                canvas.height = H;
+                //每个文字的字体大小
+                var fontSize = 16;
+                //计算列
+                var colunms = Math.floor(W /fontSize);
+                //记录每列文字的y轴坐标
+                var drops = [];
+                //给每一个文字初始化一个起始点的位置
+                for(var i=0;i<colunms;i++){
+                    drops.push(0);
+                }
+                //运动的文字
+                var str ="javascript html5 canvas";
+                //4:fillText(str,x,y);原理就是去更改y的坐标位置
+                //绘画的函数
+                function draw(){
+                    context.fillStyle = "rgba(0,0,0,0.05)";
+                    context.fillRect(0,0,W,H);
+                    //给字体设置样式
+                    context.font = "700 "+fontSize+"px  微软雅黑";
+                    //给字体添加颜色
+                    context.fillStyle ="#00cc33";//可以rgb,hsl, 标准色，十六进制颜色
+                    //写入画布中
+                    for(var i=0;i<colunms;i++){
+                        var index = Math.floor(Math.random() * str.length);
+                        var x = i*fontSize;
+                        var y = drops[i] *fontSize;
+                        context.fillText(str[index],x,y);
+                        //如果要改变时间，肯定就是改变每次他的起点
+                        if(y >= canvas.height && Math.random() > 0.99){
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                }
+                function randColor(){
+                    var r = Math.floor(Math.random() * 256);
+                    var g = Math.floor(Math.random() * 256);
+                    var b = Math.floor(Math.random() * 256);
+                    return "rgb("+r+","+g+","+b+")";
+                }
+                draw();
+                setInterval(draw,30);
+            };
+		</script>
+		<div class="wrapp">
+			<div class="load-3">
+				<div class="text">Loading...<div id="progress1" style="color: #75db12">%</div></div>
+				<div class="k-line2 k-line12-1" ></div>
+				<div class="k-line2 k-line12-2" ></div>
+				<div class="k-line2 k-line12-3" ></div>
+				<div class="k-line2 k-line12-4" ></div>
+				<div class="k-line2 k-line12-5" ></div>
+				<div class="k-line2 k-line12-6" ></div>
+				<div class="k-line2 k-line12-7" ></div>
+				<div class="k-line2 k-line12-8" ></div>
+			</div>
+		</div>
+	</div>
+	<!--loading-->
+	<script>
+        var $loading = $('#canvasbox');
+        var $progress = $('#progress1');
+        var prg = 0;
+        var timer = 0;
+        progress([80, 90], [1, 3], 100) ; // 使用数组来表示随机数的区间
+        //        window.onload =function() {
+        //            progress(100, [1, 5], 10, function()  {
+        //                window.setTimeout(function()  {  // 延迟再隐藏loading
+        //                    $loading.fadeOut(800);
+        //                }, 100)
+        //            })
+        //        };
+        window.setTimeout(function()  {
+            progress(100, [1, 5], 10, function()  {
+                window.setTimeout(function() {
+                    $loading.fadeOut(800);
+                }, 100)
+            })
+        }, 5000);
+        function progress (dist, speed, delay, callback) {
+            var _dist = random(dist);
+            var _delay = random(delay);
+            var _speed = random(speed);
+            window.clearTimeout(timer);
+            timer = window.setTimeout(function() {
+                if (prg + _speed >= _dist) {
+                    window.clearTimeout(timer);
+                    prg = _dist;
+                    callback && callback()
+                } else {
+                    prg += _speed;
+                    progress (_dist, speed, delay, callback)
+                }
+                $progress.html(parseInt(prg) + '%') ;
+            }, _delay)
+        }
+        function random (n) {
+            if (typeof n === 'object') {
+                var times = n[1] - n[0];
+                var offset = n[0];
+                return Math.random() * times + offset;
+            } else {
+                return n;
+            }
+        }
+	</script>
+
+	<!--背景视频-->
+	<div id="container">
+		<video id="background_video" loop muted></video>
+		<div id="video_cover"></div>
+		<div id="video_controls">
+      <span id="play">
+        <img src="images/play.png">
+      </span>
+		<span id="pause">
+        <img src="images/pause.png">
+      </span>
+		</div>
+	</div>
+<!--导航-->
+	<header role="banner" id="fh5co-header">
+			<div class="container">
+				<!-- <div class="row"> -->
+			    <nav class="navbar navbar-default">
+		        <div class="navbar-header">
+		        	<!-- Mobile Toggle Menu Button -->
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+		         <a class="navbar-brand" href="index.html">你好 世界！</a>
+		        </div>
+		        <div id="navbar" class="navbar-collapse collapse">
+		          <ul class="nav navbar-nav navbar-right">
+		            <li class="active"><a href="#" data-nav-section="home"><span>主页</span></a></li>
+		            <li><a href="#" data-nav-section="recommend"><span>推荐路线</span></a></li>
+		            <li><a href="#" data-nav-section="work"><span>旅游胜地</span></a></li>
+		            <li><a href="#" data-nav-section="testimonials"><span>团队</span></a></li>
+		            <li><a href="#" data-nav-section="services"><span>服务</span></a></li>
+		            <li><a href="#" data-nav-section="about"><span>案例</span></a></li>
+		            <li><a href="#" data-nav-section="play"><span>趣味天地</span></a></li>
+		            <li><a href="#" data-nav-section="contact"><span>联系我们</span></a></li>
+		          </ul>
+		        </div>
+			    </nav>
+			  <!-- </div> -->
+		  </div>
+	</header>
+<!--首屏-->
+	<section id="fh5co-home" data-section="home">
+		<div class="container">
+			<div class="text-wrap">
+				<div class="text-inner">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 col_sm">
+							<h1 class="to-animate jumpword">世界那么大，不如去看看！</h1>
+							<h2 id="navbar" class="to-animate jumpword nav navbar-nav navbar-right">
+								如果你渴望自由，如果你渴望爱情，如果你渴望运动 ，请 <a href="#" class="ttcontact" data-content="跟随我们的步伐" data-nav-section="contact">跟随我们的步伐</a>，这一切都将不期而遇</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!--第二屏-->
+	<section id="fh5co-intro">
+		<div class="container">
+			<div class="row row-bottom-padded-lg">
+				<div class="fh5co-block to-animate">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="fh5co-intro-icon icon-bulb"></i>
+						<h2>公司简介</h2>
+						<p>mz旅行集团上海有限公司，是中国国际旅行社总社在上海的唯一的一家全资公司，
+							其前身是成立于1987年的中国康辉旅行社上海分社，注册资金人民币5000万元...</p>
+						<p>
+							<a href="javascript:" class="btn btn-primary cd-modal-trigger">Show Detail</a>
+						</p>
+					</div>
+				</div>
+				<div class="cd-modal">
+					<div class="modal-content">
+						<img src="img/EP-info.jpg" alt="">
+						<div style="position: absolute;top:0;left: 0;width: 100%;height: 100%;z-index: 1">
+							<h1>公司简介</h1>
+							<p>
+								mz旅行集团上海有限公司，简称国旅上海，是中国国际旅行社总社在上海的唯一的一家全资公司，其前身是成立于1987年的中国康辉旅行社上海分社，注册资金人民币5000万元。
+
+								mz旅行上海公司连续多年荣获“全国国际旅行社百强企业”、“上海市旅游委文明单位”、“国旅集团先进企业”、“国旅总社先进企业”等荣誉称号。2003年国旅上海公司通过ISO9001－2000国际质量体系认证, 并于2007年被国务院国资委授予“优质服务明星单位”称号。2017年以年度最高分通过市级旅游标准化试点工作项目验收，成为上海市旅游标准化示范单位。公司是亚太旅游组织成员、国际航协会员。
+
+								mz旅行上海公司目前拥有各类专业人员近600人，办公面积超过8000平方米，在上海各区县设有近70家门店，主营业务包括入境旅游、出境游业务、大陆居民赴台游、国内旅游、商务会展、航空机票、签证、自由行等。是各公司企事业单位因公出国（境）服务指定供应商。多年来，公司的各项业务保持了较高速度的增长，2012年营收突破14亿元。
+
+								在新时期激烈的市场竞争中，为了实现企业创新发展、规模发展、和谐发展的目标，国旅上海公司将一如既往地秉承“安全、诚信、优质、高效”的经营理念，孜孜不倦地追求“高端品质+超值价格+诚信服务=中国MZ旅行集团”的企业衡等价值理念，为客户提供优质的服务！
+							</p>
+						</div>
+					</div> <!-- .modal-content -->
+					<a href="#0" class="modal-close">Close</a>
+				</div> <!-- .cd-modal -->
+				<div class="cd-transition-layer">
+					<div class="bg-layer"></div>
+				</div> <!-- .cd-transition-layer -->
+
+				<div class="fh5co-block to-animate">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="glyphicon glyphicon-globe"></i>
+						<h2>公司地址</h2>
+						<p>上海环球金融中心88F，2016年8月18日装修竣工。陆家嘴金融贸易区内一栋摩天大楼，就现在而言为中国大陆第三高楼、世界第五高楼...</p>
+						<p>
+							<a href="javascript:" class="btn btn-primary cd-modal-trigger">Start Effect</a>
+						</p>
+
+					</div>
+					<div class="cd-modal">
+						<div class="modal-content">
+							<img src="img/EP-address.jpg" alt="">
+							<div style="position: absolute;top:0;left: 0;width: 100%;height: 100%;z-index: 1">
+								<h1>公司地址</h1>
+								<p>
+									上海市浦东新区世纪大道100号
+									中国国旅在全球12个国家和地区拥有8家全资、控股的海外公司和8家签证中心，
+									在全国拥有36家全资、控股子公司和2家参股公司，近700家门市网点，
+									以及百余家国旅集团理事会成员旅行社，与100多个国家的1400多家旅行商建立了长期稳定的合作关系，
+									形成立足国内、放眼全球的现代化经营网络。
+									中国国旅是众多国内外知名公司旅游服务的指定供应商，
+									并与国内20多家主要旅游目的地省市政府部门建立起长期而紧密的战略合作伙伴关系。
+								</p>
+
+								<div id="allmap"></div>
+							</div>
+						</div> <!-- .modal-content -->
+						<a href="#0" class="modal-close">Close</a>
+					</div> <!-- .cd-modal -->
+					<div class="cd-transition-layer">
+						<div class="bg-layer"></div>
+					</div> <!-- .cd-transition-layer -->
+				</div>
+
+				<div class="fh5co-block to-animate">
+					<div class="overlay-darker"></div>
+					<div class="overlay"></div>
+					<div class="fh5co-text">
+						<i class="glyphicon glyphicon-send"></i>
+						<h2>服务理念</h2>
+						<p>诚信为本、服务至上、拼搏奉献、永争第一
+							mzs世界旅一贯秉承“诚信服务”的经营理念，以“4P旅游新理念”为企业发展的行为准则。
+							“中国世界旅第一家”....
+						</p>
+						<p>
+							<a href="javascript:" class="btn btn-primary cd-modal-trigger">Start Effect</a>
+						</p>
+
+					</div>
+					<div class="cd-modal">
+						<div class="modal-content">
+							<img src="img/EP-culture.jpg" alt="">
+							<div style="position: absolute;top:0;left: 0;width: 100%;height: 100%;z-index: 1">
+								<h1>服务理念</h1>
+								<p>
+									<span>国旅精神</span>
+									诚信为本、服务至上、拼搏奉献、永争第一
+
+									<span>经营理念</span>
+									国旅一贯秉承“诚信服务”的经营理念，以“4P旅游新理念”为企业发展的行为准则。
+
+									国旅以用心至深的优质服务意识为游客带来舒适；以用情至真的线路设计满足每一个旅游团队的个性化需求；我们的奉献让您在彩云行、天地美的旅游中，感悟到国旅名牌品质的与众不同。
+
+									<span>4P旅游新概念</span>
+									Public服务大众、Professional专业精湛、Passional充满激情、Perfect追求完美。
+
+									<span>国旅口号</span>
+									“中国国旅天下一家”
+
+									<span>发展目标</span>
+									中国旅游产业领域中拥有旗舰地位的企业集团
+
+									<span>愿景目标</span>
+									中央企业群体中最具市场竞争力的旅行社集团；
+
+									中国最强的跨国旅游运营商；
+
+									全球最为著名的旅游业品牌之一。
+
+									<span>发展路径</span>
+									运用收购、合资、特许经营等手段，吸纳国旅系列的旅行社企业，形成绝对规模优势。利用央企旅游产业重组的历史机遇，扩充集团泛旅游类资源，涉足新的产业领域，形成相关多元化发展格局。根据旅游市场需求的变化，运用上市等资本市场路径调整集团发展重心。
+								</p>
+							</div>
+						</div> <!-- .modal-content -->
+						<a href="#0" class="modal-close">Close</a>
+					</div> <!-- .cd-modal -->
+					<div class="cd-transition-layer">
+						<div class="bg-layer"></div>
+					</div> <!-- .cd-transition-layer -->
+				</div>
+			</div>
+			<div class="row watch-video text-center to-animate">
+				<span>企业宣传片</span>
+				<a href="video/world90.mp4" class="popup-vimeo btn-video"><i class="icon-play2"></i></a>
+			</div>
+		</div>
+	</section>
+
+	<!--推荐路线-->
+	<section id="fh5co-recommend" data-section="recommend">
+		<span class="play_title">推荐路线</span>
+		<div class="grid">
+				<figure class="effect-lily">
+					<img src="img/rec-1.jpg" alt="img01"/>
+					<figcaption>
+						<h2>希腊 —<span>圣托里尼</span></h2>
+						<p>希腊-圣托里尼 圣托里尼岛是爱琴海璀璨的明珠，柏拉图笔下的自由之地，赶紧邀请TA手牵手感受这浪漫婚礼之旅吧</p>
+						<a href="rec-10d.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+			    <figure class="effect-oscar">
+				<img src="img/rec-2.jpg" alt="img08"/>
+				<figcaption>
+					<h2>亲子 <span>成长</span><span>浪漫</span></h2>
+					<p>毛里求斯 <strong class="obig">CLUBMED爱必浓度假村</strong> 5晚7日度假之旅</p>
+					<a href="http://www.cits.cn/marketing/citsvip/mlqs/index.html" target="_blank">View more</a>
+				</figcaption>
+			</figure>
+				<figure class="effect-sadie">
+					<img src="img/rec-3.jpg" alt="img02"/>
+					<figcaption>
+						<h2>斯里卡兰 -<span>摄影之旅</span></h2>
+						<p>每日一个摄影主题， <br>探秘东部古老丛林深处神秘的原始部落，近距离感受原始生活气息</p>
+						<a href="http://www.cits.cn/marketing/citsvip/sllk/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-honey">
+					<img src="img/rec-4.jpg" alt="img07"/>
+					<figcaption>
+						<h2>房车体验 <span>自驾</span> <i>Now</i></h2>
+						<a href="http://www.cits.cn/marketing/citsvip/20180425yn/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-layla">
+					<img src="img/rec-5.jpg" alt="img04"/>
+					<figcaption>
+						<h2>遇见你- <span>美丽的深秋</span></h2>
+						<p>日本京都、神户、大阪深秋健跑之旅.</p>
+						<a href="http://www.cits.cn/marketing/citsvip/jpzl/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-zoe">
+					<img src="img/rec-6.jpg" alt="img14"/>
+					<figcaption>
+						<h2>西沙 <span>Zoe</span></h2>
+						<span class="icon-heart"></span>
+						<span class="icon-eye"></span>
+						<span class="icon-paper-clip"></span>
+						<p>开往 <strong class="obig">童年</strong> 传说的轮船--美丽富饶的西沙.</p>
+						<a href="http://www.cits.cn/marketing/citsvip/xs/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-marley">
+					<img src="img/rec-7.jpg" alt="img09"/>
+					<figcaption>
+						<h2>实践 <span>教育</span></h2>
+						<p>了解爱护世界濒危保护动物之旅，广州-成都-雅安-成都-广州</p>
+						<a href="http://www.cits.cn/marketing/citsvip/dxm/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-ruby">
+					<img src="img/rec-8.jpg" alt="img10"/>
+					<figcaption>
+						<h2>游艇 <span>海上风光</span></h2>
+						<p>游艇，是一种水上娱乐用高级耐用消费品。它集航海、运动、娱乐、休闲等功能于一体，满足个人及家庭享受生活的需要。在发达国家，游艇像轿车一样多为私人拥有</p>
+						<a href="http://www.cits.cn/marketing/citsvip/dlyt/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+				<figure class="effect-roxy">
+					<img src="img/rec-9.jpg" alt="img03"/>
+					<figcaption>
+						<h2>团队建设 <span>大型企业建筑参观</span></h2>
+						<p>上海-日本大阪-京都-名古屋-静冈-山梨-东京-上海</p>
+						<a href="http://www.cits.cn/marketing/citsvip/riben/index.html" target="_blank">View more</a>
+					</figcaption>
+				</figure>
+			</div>
+	</section>
+
+<!--第三屏-->
+	<section id="fh5co-work" data-section="work">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">旅游胜地</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>我们罗列了世界各地旅游必去的地方，供大家参考</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-sm">
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery20.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery20.jpg" alt="Image"
+							 title="我国古代伟大的工程之一" class="img-responsive">
+						<div class="fh5co-text">
+							<h2>中国长城</h2>
+							<span>NO.1</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery1.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery1.jpg"
+							 title="美国大峡谷是一个举世闻名的自然奇观" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>美国大峡谷-The Grand Canyon</h2>
+						<span>NO.2</span>
+						</div>
+					</a>
+				</div>
+
+				<div class="clearfix visible-sm-block"></div>
+
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery3.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery3.jpg"
+							title="佛罗里达风景最亮丽的棕榈海滩是全球著名的旅游天堂之一" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>美国佛罗里达州-Florida</h2>
+						<span>NO.3</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery4.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery4.jpg"
+							 title="新西兰位于南太平洋" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>新西兰的南岛-Sout Island</h2>
+						<span>NO.4</span>
+						</div>
+					</a>
+				</div>
+				
+				<div class="clearfix visible-sm-block"></div>
+
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery5.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery5.jpg"
+							 title="到南非游览，千万不可错过到非洲尖端好望角参观的机会。" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>好望角-Cape Town</h2>
+						<span>NO.5</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery6.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery6.jpg"
+							 title="金庙位于印度边境城市阿姆利则" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>金庙-Golden Temple</h2>
+						<span>NO.6</span>
+						</div>
+					</a>
+				</div>
+				
+				<div class="clearfix visible-sm-block"></div>
+
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery7.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery7.jpg" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>拉斯维加斯-Las Vegas</h2>
+						<span>NO.7</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="picture/scenery8.jpg" class="fh5co-project-item image-popup to-animate">
+						<img src="picture/scenery8.jpg" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+						<h2>悉尼-Sydney</h2>
+						<span>NO.8</span>
+						</div>
+					</a>
+				</div>
+
+				<div class="clearfix visible-sm-block"></div>
+
+				<div class="col-md-4 col-sm-6 col-xxs-12">
+					<a href="javascript:" id="showhide" class="fh5co-project-item  to-animate">
+						<img src="picture/timg.gif" alt="Image" class="img-responsive">
+						<div class="fh5co-text">
+							<h2>点击加载更多</h2>
+							<span>Illustration</span>
+						</div>
+					</a>
+				</div>
+
+				<div class="hide" id="hideitem">
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery9.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery9.jpg"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>纽约-New York</h2>
+								<span>NO.9</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery10.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery10.jpg" title="坐落于印度古都阿格的泰姬陵，是世界七大奇迹之一。"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>印度泰姬陵-Taj Mahal</h2>
+								<span>NO.10</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery11.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery11.jpg" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>加拿大洛基山脉-Canadian Rockies</h2>
+								<span>NO.11</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery12.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery12.jpg"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>澳州艾尔斯岩-Uluru</h2>
+								<span>NO.12</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery13.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery13.jpg" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>墨西哥玛雅古迹-Chichen Itza - Mexico</h2>
+								<span>NO.13</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery14.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery14.jpg"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>秘鲁印加遗址-Machu Picchu - Peru</h2>
+								<span>NO.14</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery15.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery15.jpg" title="举世闻名的尼亚加拉瀑布位于加拿大和美国交界的尼亚加拉河上。"alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>尼亚加拉瀑布-Niagara Falls</h2>
+								<span>NO.15</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery16.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery16.jpg"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>约旦佩特拉城-Petra - Jordan</h2>
+								<span>MO.16</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery17.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery17.jpg" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>埃及金字塔-The Pyramids - Egypt</h2>
+								<span>NO.17</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery18.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery18.jpg"  alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>威尼斯-Venice</h2>
+								<span>NO.18</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery19.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery19.jpg" title="马尔代夫就是上天专为人类度假而设" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>马尔代夫-Maldives</h2>
+								<span>NO.19</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="picture/scenery2.jpg" class="fh5co-project-item image-popup to-animate">
+							<img src="picture/scenery2.jpg" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>澳大利亚的大堡礁-Great Barrier Reef</h2>
+								<span>NO.20</span>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-6 col-xxs-12">
+						<a href="javascript:" id="closeitem" class="fh5co-project-item  to-animate">
+							<img src="picture/timg.gif" alt="Image" class="img-responsive">
+							<div class="fh5co-text">
+								<h2>收起</h2>
+								<span>close</span>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!--第三屏-->
+	<section id="fh5co-testimonials" data-section="testimonials">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">团队介绍</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="box-testimony">
+						<blockquote class="to-animate-2">
+							<p>
+								为客户提供更佳的旅行出游方案。
+								依据公司整体运营战略，负责公司活动方案的提案、策划、执行和效果评估，跟踪和反馈方案的推广执行情况；
+								负责公司产品的形象宣传、形象推广、形象监控；
+								负责公司文化活动、分类活动、社会活动的策划、组织和实施；
+							</p>
+						</blockquote>
+						<div class="author to-animate">
+							<figure><img src="picture/ideas.jpg" alt="Person"></figure>
+							<div id="finance" class="slogan" data-text="创意部 &nbsp; 团队成员介绍  Mr.Fang"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box-testimony">
+						<blockquote class="to-animate-2">
+							<p>
+								行政+财务+人事<br/>
+								行政：企业资料档案管理、办公环境设备管理、行政制度的执行与修订、企业公文的起草发布、行政费用的审批、
+								企业固定资产的登记管理、企业相关活动的组织实施。<br>
+								财务：负责本企业的财务会计工作,及时编制报表和财务报告,按照国家税收政策,积极筹划。<br>
+								人事：招聘、面试、薪酬、考核、培训、开发、调动、劳动合同、社会保险、职业资格、职称申报、
+								员工户口、档案、相关人事制度的制订和执行。
+							</p>
+						</blockquote>
+						<div class="author to-animate">
+							<figure><img src="picture/zh.jpg" alt="Person"></figure>
+							<div id="comprehensive" class="slogan" data-text="综合部 &nbsp; 团队成员介绍  Mr.Fang"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box-testimony">
+						<blockquote class="to-animate-2">
+							<p>
+								负责协助客户完成整个计划的具体实施。
+								联系各部门相关人士具体到责任人完成项目的每一个环节。
+								收集并采纳客户提出的需求以便及时更新。
+								预定行程中的酒店、景点安排以及联系各个地区的大使馆做好安全保障。
+								及时反馈项目进展的进度做项目汇报等。
+							</p>
+						</blockquote>
+						<div class="author to-animate">
+							<figure><img src="picture/sj.jpg" alt="Person"></figure>
+							<div id="practice" class="slogan" data-text="实践部 &nbsp; 团队成员介绍  Mr.Fang"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!--第四屏-->
+	<section id="fh5co-services" data-section="services">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-left">
+					<h2 class=" left-border to-animate">服务</h2>
+					<div class="row">
+						<div class="col-md-8 subtext to-animate">
+							<h3>我们提供了以下四个方面的旅游出行服务：</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
+					<a class="s_masking" target="_blank" href="index1.html"></a>
+					<i class="icon to-animate-2 icon-anchor"></i>
+					<h3>专业需求顾问</h3>
+					<p>我们有专业的旅游顾问，可以了解您的需求，为您制定最适合您的旅游出行路线，24小时为您服务
+						咨询顾问受客户委托，一般就某个项目或是企业管理情况展开工作，通过详细的调研和论证，提出一个方案，方案一般要切合企业的实际需求。
+						基本是为客户出谋划策，制定一个符合客户实际情况的方案或行动计划等。
+					</p>
+
+				</div>
+				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
+					<a class="s_masking" target="_blank" href="index2.html"></a>
+					<i class="icon to-animate-2 icon-layers2"></i>
+					<h3>定制出行计划</h3>
+					<p>历经20年的积累，我们拥有丰富的资源帮助您解决出行计划中机票、车票、酒店以及旅游景点的门票。为您解决除了玩以外的所有负担
+						顾名思义，即高端旅行策划机构根据客户的特定需求，从路线、方式和服务着手为客户量身打造的具有浓郁个人专属风格的旅行，它提供的是一种个性化、专属化、“一对一”式的高品质服务。</p>
+				</div>
+
+
+				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
+					<a class="s_masking" target="_blank" href="index3.html"></a>
+					<i class="icon to-animate-2 icon-video2"></i>
+					<h3>顶尖摄像团队</h3>
+					<p>我们有专业的摄影团队，可以为您提供优质的照片以及出行记录
+						每一位成熟的摄影师都要有自己的风格!
+						这些风格都来自于个人的文化底蕴、人生观、审美观、以及人品、心境
+						中国新锐摄影师岑晓欣开创架机自我摄影时代
+						等等。但同时因为每个人的这些因素又在不断的变化、进步.......!所以风格也在不断的变化。
+					</p>
+				</div>
+				<div class="col-md-6 col-sm-6 fh5co-service to-animate">
+					<a class="s_masking" target="_blank" href="index4.html"></a>
+					<i class="icon to-animate-2 icon-monitor"></i>
+					<h3>权威安全保障</h3>
+					<p>每一个地方我们都会提前了解当地的情况，及时与当地警方联络。24小时保障您的安全
+						安全保障权是消费者最主要、最基本的权利。《消费者权益保护法》第7条规定：“消费者在购买、使用商品和接受服务时享有人身、财产安全不受损害的权利。消费者有权要求经营者提供的商品和服务，符合保障人身、财产安全的要求
+					</p>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+
+<!--第五屏-->
+	<section id="fh5co-about" data-section="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">案例</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>以下都是客户提供的出行游玩的照片，我们整理并分类了一下，点击进入对应瀑布流</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate div1">
+						<a href="area-china.html" target="_blank"></a>
+						<figure><a href="area-china.html" target="_blank"><img src="picture/china.jpg" alt="Image" title="中国"></a>
+							</figure>
+						<h3>中国</h3>
+						<span class="fh5co-position">CHINA</span>
+						<p>经全国旅游景区质量等级评定委员会委派地评定小组现场验收，全国旅游景区质量等级评定委员会审核批准，
+							决定批准北京市故宫博物院(Beijing City Museum of the Imperial Palace)等66家景区为国家5A级旅游景区。
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate div1">
+						<a href="area-continents.html" target="_blank"></a>
+						<figure><a href="area-continents.html" target="_blank"><img src="picture/asia.jpg" alt="Image" title="中国"></a>
+						</figure>
+						<h3>亚洲</h3>
+						<span class="fh5co-position">ASIA</span>
+						<p>经全国旅游景区质量等级评定委员会委派地评定小组现场验收，全国旅游景区质量等级评定委员会审核批准，
+							决定批准北京市故宫博物院(Beijing City Museum of the Imperial Palace)等66家景区为国家5A级旅游景区。
+						</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="fh5co-person text-center to-animate div1">
+						<a href="area-world.html" target="_blank"></a>
+						<figure><a href="area-world.html" target="_blank"><img src="picture/world.jpg" alt="Image" title="中国"></a>
+						</figure>
+						<h3>全球</h3>
+						<span class="fh5co-position">WORLD</span>
+						<p>经全国旅游景区质量等级评定委员会委派地评定小组现场验收，全国旅游景区质量等级评定委员会审核批准，
+							决定批准北京市故宫博物院(Beijing City Museum of the Imperial Palace)等66家景区为国家5A级旅游景区。
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<section id="fh5co-counters" style="background-image: url(images/full_image_1.jpg);" data-stellar-background-ratio="0.5">
+		<div class="fh5co-overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center to-animate">
+					<h2>Fun Facts</h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-briefcase to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="189" data-speed="5000" data-refresh-interval="50">189</span>
+						<span class="fh5co-counter-label">Finished projects</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-code to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="68689" data-speed="5000" data-refresh-interval="50">68689</span>
+						<span class="fh5co-counter-label">Amount of picture</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-cup to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="1302" data-speed="5000" data-refresh-interval="50">1302</span>
+						<span class="fh5co-counter-label">Cup of coffees</span>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="fh5co-counter to-animate">
+						<i class="fh5co-counter-icon icon-people to-animate-2"></i>
+						<span class="fh5co-counter-number js-counter" data-from="0" data-to="160" data-speed="5000" data-refresh-interval="50">160</span>
+						<span class="fh5co-counter-label">Happy clients</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!--第六屏-->
+	<section id="fh5co-play" data-section="play">
+		<div id="play_back">
+			<div id='stars'></div>
+			<div id='stars2'></div>
+			<div id='stars3'></div>
+		</div>
+		<div class="container">
+			<h4 class="play_title">趣味天地</h4>
+			<ul class="play_item">
+				<li><a href="silk/silk.html" target="_blank"></a><img src="images/silk.jpg" alt=""><span>丝绸之路</span></li>
+				<li><a href="word.html"  target="_blank"></a><img src="images/f-2.png" alt=""><span>查看签名</span></li>
+				<li><a href="showlove/index.html" target="_blank"></a><img src="images/f-3.jpg" alt=""><span>爱之旅</span></li>
+				<li><a href="http://www.newyx.net/h5/1203.htm" target="_blank"></a><img src="images/f-4.jpg" alt=""><span>甜蜜糖果</span></li>
+				<li><a href="http://www.newyx.net/h5/656.htm" target="_blank"></a><img src="images/f-9.jpg" alt=""><span>抢地主</span></li>
+				<li><a href="http://www.newyx.net/h5/1241.htm" target="_blank"></a><img src="images/f-10.jpg" alt=""><span>数独游戏</span></li>
+				<li><a href="http://www.newyx.net/h5/1054.htm" target="_blank"></a><img src="images/f-5.jpg" alt=""><span>纸飞机冲刺</span></li>
+				<li><a href="http://www.newyx.net/h5/1382.htm" target="_blank"></a><img src="images/f-6.png" alt=""><span>跑酷历险记</span></li>
+				<li><a href="http://www.newyx.net/h5/22.htm" target="_blank"></a><img src="images/f-7.jpg" alt=""><span>轻音少女换装</span></li>
+				<li><a href="http://www.newyx.net/h5/70.htm" target="_blank"></a><img src="images/f-8.jpg" alt=""><span>校园另一半</span></li>
+			</ul>
+		</div>
+	</section>
+<!--第七屏-->
+	<section id="fh5co-contact" data-section="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 section-heading text-center">
+					<h2 class="to-animate">联系我们</h2>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2 subtext to-animate">
+							<h3>我们欢迎您给我提宝贵的意见，或者您想要体验我们的服务。</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-bottom-padded-md">
+				<div class="col-md-6 to-animate">
+					<h3 class="white">联系方式</h3>
+					<ul class="fh5co-contact-info">
+						<li class="fh5co-contact-address ">
+							<i class="icon-home"></i>
+							上海市宝山区 <br>罗泾镇 金勺路 XXXX号
+						</li>
+						<li><i class="icon-phone"></i> <a href="tel:1752103471X">1752103471X</a></li>
+						<li><i class="icon-envelope"></i><a href="mailto:1546860452@qq.com?subject=邮件标题&body=邮件内容">154686045X@qq.com</a></li>
+						
+					</ul>
+				</div>
+
+				<div class="col-md-6 to-animate">
+					<h3 class="white">给我们留言</h3>
+					<form action="#" method="post">
+						<div class="form-group ">
+							<label for="name" class="sr-only">姓名</label>
+							<input id="name" class="form-control" placeholder="姓名" type="text" required>
+						</div>
+						<div class="form-group ">
+							<label for="email" class="sr-only">邮箱</label>
+							<input id="email" class="form-control" placeholder="邮箱" type="email" required>
+						</div>
+						<div class="form-group ">
+							<label for="phone" class="sr-only">电话</label>
+							<input id="phone" class="form-control" pattern="[1][3,4,5,7,8][0-9]{9}" placeholder="电话" type="text" required>
+						</div>
+						<div class="form-group ">
+							<label for="message" class="sr-only">留言</label>
+							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="留言"></textarea>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-primary btn-lg" value="提交 留言" type="submit">
+						</div>
+					</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="map" class="to-animate"></div>
+	</section>
+<!--页脚-->
+	<footer id="footer" role="contentinfo">
+		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
+		<div class="container">
+			<div class="">
+				<div class="col-md-12 text-center">
+					<p> Copyright © 2006 - 2018 MZ. All Rights Reserved.MZ工作室 版权所有 </p>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="social social-circle">
+						<li><a href="#"><i class="icon-twitter"></i></a></li>
+						<li><a href="#"><i class="icon-facebook"></i></a></li>
+						<li><a href="#"><i class="icon-youtube"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+<!--员工风采展示-->
+	<div class="employee">
+		<section id="fang">
+			<div class="card">
+				<h2>Mr.XXX</h2>
+				<img src="picture/p-fang.jpg" width="320" />
+			</div>
+			<div class="card" id="card">
+				<h2>董事长</h2>
+				<div class="text"><p id="ptext"><span id="sp1"></span><span id="sp2">_</span></p></div>
+				<audio loop="loop" id="music-code">
+					<source src="video/music.wav" type="audio/wav">
+				</audio>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+		<section id="ling">
+			<div class="card">
+				<h2>Miss.XXX</h2>
+				<img src="picture/ling1.jpg" width="320" />
+			</div>
+			<div class="card">
+				<h2>CEO</h2>
+				<p>首席执行官向公司的董事会负责，而且往往就是董事会的成员之一。在公司或组织内部拥有最终的执行权力。
+					在比较小的企业中首席执行官可能同时又是董事会主席和公司的总裁，
+					但在大企业中这些职务往往是由不同的人担任的，避免个人在企业中扮演过大的角色、拥有过多的权力，
+					同时也可以防止公司本身与公司的所有人（即股东）之间发生利益冲突。</p>
+				<p>CEO领导下的执行班子，包括：总经理、副总经理、各部门经理、总会计师、总工程师等。</p>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+		<section id="guo">
+			<div class="card">
+				<h2>Mr.XXX</h2>
+				<img src="picture/guo.jpg" width="320" />
+			</div>
+			<div class="card">
+				<h2>旅游顾问</h2>
+				<p>2008年由西方进入中国，目前在国内还是新兴行业，从事该行业的还是由旅行社为主流，也有部分个人参与。国内目前将销售人员划归为旅游顾问，负责接待顾客咨询、介绍旅游线路、接受客人报名、电话咨询等相关业务。</p>
+				<p>大致服务内容有几项：
+					1：提供旅游地点的景点，旅游商品，本地美食的指导。
+					2：提供旅行者在旅游地点的时间，预算做计划。
+					3：为旅行者提供酒店预定、旅行社预定，以及部分客人要求的专车预定。
+					4：宗旨：让旅行者在旅游地以最合理的预算、最自由的方式，玩到最多景点，了解更多的本地风俗。
+				</p>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+		<section id="wang">
+			<div class="card">
+				<h2>Mr.XXX</h2>
+				<img src="picture/wang.jpg" width="320" />
+			</div>
+			<div class="card">
+				<h2>摄影师</h2>
+				<p>摄影师，使用照相机、感光片、光源和造型技艺在室内外拍摄人像、风景、产品及生产或生活图像信息的人员。
+					2016年12月，国务院印发《关于取消一批职业资格许可和认定事项的决定》，
+					再次公布取消114项职业资格许可和认定事项，其中“摄影师”名列其中</p>
+				<p>使用照相机、感光片、光源和造型技艺在室内外拍摄人像、风景、产品及生产或生活图像信息的人员。
+					高级技师（国家职业资格一级）
+				</p>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+		<section id="lv">
+			<div class="card">
+				<h2>Mr.XXX</h2>
+				<img src="picture/Mrwang.jpg" width="320" />
+			</div>
+			<div class="card">
+				<h2>实践员</h2>
+				<p>实践有着诸多的含义，经典的观点是主观见之于客观，包含客观对于主观的必然及主观对于客观的必然。
+					实践就是人们能动地改造和探索现实世界一切客观物质的社会性活动。
+					实践的基本特征：客观性、能动性和社会历史性。
+					实践的基本形式：经济、政治、军事、教育、科学技术、文化、卫生、体育、司法、社会治安、社会管理、社会交往、劳动就业与社会保障、公共服务等活动。
+					实践是切实履行。</p>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+		<section id="qiu">
+			<div class="card">
+				<h2>Miss.XXX</h2>
+				<img src="picture/ling.jpg" width="320" />
+			</div>
+			<div class="card">
+				<h2>财务总监（CFO）</h2>
+				<p>首席财务官——CFO（Chief Finance Officer）是企业治理结构发展到一个新阶段的必然产物。没有首席财务官的治理结构不是现代意义上完善的治理结构。从这一层面上看，中国构造治理结构也应设立CFO之类的职位</p>
+				<p>财务总监的使命和职能
+					　　企业战略规划和财务战略承接
+					　　提供决策支持的财务管理报告和分析体系
+					　　规划未来的全面预算管理体系
+					　　全价值链的营运资金管理体系
+					　　全面风险管理体系
+					　　企业投资并购价值管理
+					　　创造价值的税务管理
+					　　财务总监的领导力和组织能力
+					　　财务总监对团队建设的规划和能力的培养
+					　　财务总监能力实际演练</p>
+			</div>
+			<span class="glyphicon glyphicon-remove closeinfo"></span>
+		</section>
+	</div>
+	<script>
+        var tFang = "董事长，指的是一家公司的最高领导者，统领董事会。董事长也是董事之一，由董事会选出，其代表董事会领导公司的方向与策略。董事长是公司或机构的最高管理者，由董事会选举产生，为公司利益的最高代表，领导董事会根据新公司法，有限公司可以设一名执行董事，不设董事会。所以也不一定有董事会，但至少需从股东选出一席董事（公司负责人）对外代表公司。股份有限公司必须有董事会，至少要设三席董事。董事长由董事会以全体董事过半数同意选举产生";
+        var oAudio = document.getElementById('music-code');
+        function text(str){
+            var arr=[];
+            for(var i=0;i<str.length;i++){arr[i]=str[i];}
+            var p=document.getElementById("sp1");
+            var sp2=document.getElementById("sp2");
+            var timer = setInterval(function(){sp2.style.display="none";setTimeout("sp2.style.display='inline'",500);},10);
+            var index=0;
+            var obj=setInterval(function(){
+                if(index<arr.length){
+                    var text=document.createTextNode(arr[index]);
+                    p.appendChild(text);
+                    index++;
+                }else {
+                    clearInterval(timer);
+                    clearInterval(obj);
+                    oAudio.pause();
+                    return false;
+                }
+            },10);
+        }
+        function startPlay() {
+			oAudio.style.display = 'block';
+			oAudio.play();
+        }
+	</script>
+	<!--文字跳动-->
+	<script src="js/jquery.bumpytext.packed.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Counter -->
+	<script src="js/jquery.countto.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!--team-->
+	<script src="js/jumpword.js"></script>
+
+	<!-- Main JS (Do not remove) -->
+	<script src="js/bideo.js"></script>
+	<script src="js/main.js"></script>
+	<!--个人介绍背景-->
+	<script src="js/regl.min.js"></script>
+
+	<script  src="js/infoback.js"></script>
+	<!--3d个人介绍-->
+	<script type="text/javascript" src="js/jQuery-face-cursor.js"></script>
+	<!--地图-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=znW9W2c7H0nFTsbAG9hrdnGmT8BdVtNm"></script>
+	<script type="text/javascript">
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(121.508693,31.242845);
+        map.enableScrollWheelZoom(true);
+        map.centerAndZoom(point, 18);
+        var marker = new BMap.Marker(point);  // 创建标注
+        map.addOverlay(marker);               // 将标注添加到地图中
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        // 覆盖区域图层测试
+        map.addTileLayer(new BMap.PanoramaCoverageLayer());
+
+        var stCtrl = new BMap.PanoramaControl(); //构造全景控件
+        stCtrl.setOffset(new BMap.Size(20, 20));
+        map.addControl(stCtrl);//添加全景控件
+	</script>
+
+	<script>
+        $(document).ready(function() {
+//			第一屏跳动的文字
+            $('.jumpword').bumpyText();
+//          第三屏风景名胜更多
+            $("#showhide").click(function(){
+                $(this).hide();
+                $("#hideitem").removeClass('hide');
+			});
+            $("#hideitem").click(function(){
+                $("#showhide").fadeIn(600);
+                $(document).scrollTop(3600);
+                $("#hideitem").addClass('hide');
+            });
+//            3d个人介绍卡
+			 $(".card").faceCursor();
+
+			 $(".slogan").on('click','span',function () {
+                     var cur_text = $(this).html().split('.')[1];
+                 switch(cur_text)
+                 {
+                     case "Fang":showCanvas(); someone.fang();text(tFang);startPlay(); break;
+                     case "Wang":showCanvas();someone.wang();break;
+                     case "Guo":showCanvas();someone.guo();break;
+                     case "Ling":showCanvas();someone.ling();break;
+                     case "lv":showCanvas();someone.lv();break;
+                     case "Qiu":showCanvas();someone.qiu();break;
+                     default:alert("抱歉此人信息暂未上传");
+                 }
+             });
+            	function showCanvas() {
+                $("body canvas").fadeIn(800);
+            }
+            	function closeCanvas() {
+                $("body canvas").hide(600);
+            }
+            	var someone = {
+                 fang: function () {
+                    $('#fang').slideDown(1200)
+                },
+			   	 ling:function () {
+                    $('#ling').slideDown(1200)
+                },
+			   	 wang:function () {
+                   $('#wang').slideDown(1200)
+               	},
+               	 qiu:function () {
+                   $('#qiu').slideDown(1200)
+               	},
+               	 lv:function () {
+                   $('#lv').slideDown(1200)
+               	},
+               	 guo:function () {
+                   $('#guo').slideDown(1200)
+               }
+		   };
+//			关闭个人介绍页面
+			$('.closeinfo').click(function(){
+			    $(this).parent().hide();
+                oAudio.pause();
+			    closeCanvas();
+			})
+        });
+
+        if (window.location.host.indexOf('github.io') !== -1 && window.location.protocol !== "https:") {
+            window.location.protocol = "https";
+        }
+	</script>
+	<script>
+        jQuery(document).ready(function($){
+            //cache some jQuery objects
+            var modalTrigger = $('.cd-modal-trigger'),
+                transitionLayer = $('.cd-transition-layer'),
+                transitionBackground = transitionLayer.children(),
+                modalWindow = $('.cd-modal');
+
+            var frameProportion = 1.78, //png frame aspect ratio
+                frames = 25, //number of png frames
+                resize = false;
+
+            //set transitionBackground dimentions
+            setLayerDimensions();
+            $(window).on('resize', function(){
+                if( !resize ) {
+                    resize = true;
+                    (!window.requestAnimationFrame) ? setTimeout(setLayerDimensions, 300) : window.requestAnimationFrame(setLayerDimensions);
+                }
+            });
+
+            //open modal window
+            modalTrigger.on('click', function(event){
+                var oEvent = event||window.event;
+                oEvent.preventDefault();
+                $(this).parents('.fh5co-block').siblings().hide();
+
+                transitionLayer.addClass('visible opening disblock');
+                modalWindow.addClass('disblock');
+
+                var delay = ( $('.no-cssanimations').length > 0 ) ? 0 : 600;
+                setTimeout(function(){
+                    modalWindow.addClass('visible');
+                }, delay);
+            });
+
+            //close modal window
+            modalWindow.on('click', '.modal-close', function(event){
+                event.preventDefault();
+                $('.fh5co-block').fadeIn(1000);
+                transitionLayer.addClass('closing');
+                modalWindow.removeClass('visible');
+                transitionBackground.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function(){
+                    transitionLayer.removeClass('closing opening visible');
+                    transitionBackground.off('webkitAnimationEnd oanimationend msAnimationEnd animationend');
+                });
+            });
+
+            function setLayerDimensions() {
+                var windowWidth = $(window).width(),
+                    windowHeight = $(window).height(),
+                    layerHeight, layerWidth;
+
+                if( windowWidth/windowHeight > frameProportion ) {
+                    layerWidth = windowWidth;
+                    layerHeight = layerWidth/frameProportion;
+                } else {
+                    layerHeight = windowHeight*1.2;
+                    layerWidth = layerHeight*frameProportion;
+                }
+
+                transitionBackground.css({
+                    'width': layerWidth*frames+'px',
+                    'height': layerHeight+'px'
+                });
+                resize = false;
+            }
+        });
+	</script>
+
+	</body>
+</html>
+
